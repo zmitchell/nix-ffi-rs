@@ -5,7 +5,7 @@
 #include <nix/fetchers.hh>
 #include <nix/error.hh>
 
-namespace nix_ffi_rs
+namespace nix_cxx
 {
   using nix::FlakeRef;
 

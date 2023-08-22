@@ -1,7 +1,7 @@
-#[cxx::bridge(namespace = "nix_ffi_rs")]
+#[cxx::bridge(namespace = "nix_cxx")]
 pub(crate) mod ffi {
     unsafe extern "C++" {
-        include!("nix-ffi-rs/include/nix.h");
+        include!("nix-cxx/include/nix.h");
 
         type FlakeRef;
 

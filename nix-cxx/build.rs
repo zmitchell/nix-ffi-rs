@@ -3,7 +3,7 @@ fn main() {
         .file("src/nix.cpp")
         .flag_if_supported("-std=c++2a")
         .includes(pkg_config::probe_library("nix-main").unwrap().include_paths)
-        .compile("nix_ffi_rs");
+        .compile("nix_cxx");
     println!("cargo:rustc-link-lib=nixfetchers");
 
     println!("cargo:rerun-if-changed=include/nix.h");

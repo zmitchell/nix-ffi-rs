@@ -81,7 +81,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "nix-ffi-rs"
+name = "nix-cxx"
 version = "0.1.0"
 dependencies = [
  "cxx",
