@@ -28,9 +28,20 @@
           src = builtins.path { path = ./.; name = "nix-ffi-rs"; };
 
           buildInputs = with pkgs; [
+            nix
+            boost
             openssl
             pkg-config
           ] ++ lib.optional hostPlatform.isDarwin darwinExtraDeps;
+        };
+        devShells.default = pkgs.mkShell {
+          packages = [
+            pkgs.cargo-expand
+          ];
+
+          inputsFrom = [
+            self.packages.${system}.default
+          ];
         };
       }
     );
