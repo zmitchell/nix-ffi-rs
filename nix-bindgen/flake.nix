@@ -19,7 +19,6 @@
         mainDeps = with pkgs; [
             boost
             openssl
-            pkg-config
         ];
         darwinExtraDeps = with pkgs; [
           libiconv
@@ -34,6 +33,7 @@
 
           src = builtins.path { path = ./.; name = "nix-bindgen"; };
 
+          nativeBuildInputs = with pkgs; [pkg-config];
           buildInputs = [nix-c-bindings.packages.${system}.nix] ++ mainDeps ++ pkgs.lib.optional pkgs.hostPlatform.isDarwin darwinExtraDeps;
         };
         devShells.default = pkgs.mkShell {
