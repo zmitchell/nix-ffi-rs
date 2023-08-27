@@ -27,46 +27,20 @@
         ];
       in
       {
-        packages.cxx = pkgs.rustPlatform.buildRustPackage {
-          pname = "nix-cxx";
-          version = "0.0.1";
-          cargoLock.lockFile = ./Cargo.lock;
-
-          src = builtins.path { path = ./nix-cxx; name = "nix-cxx"; };
-
-          buildInputs = with pkgs; [
-            nix
-          ] ++ mainDeps ++ lib.optional hostPlatform.isDarwin darwinExtraDeps;
-        };
-        devShells.cxx = pkgs.mkShell {
-          inputsFrom = [
-            self.packages.${system}.cxx
-          ];
-
-          shellHook = ''
-            cd nix-cxx
-          '';
-        };
-        packages.bindgen = pkgs.rustPlatform.buildRustPackage {
+        packages.default = pkgs.rustPlatform.buildRustPackage {
           pname = "nix-bindgen";
           version = "0.0.1";
           cargoLock.lockFile = ./Cargo.lock;
 
-          src = builtins.path { path = ./nix-bindgen; name = "nix-bindgen"; };
+          src = builtins.path { path = ./.; name = "nix-bindgen"; };
 
           buildInputs = [nix-c-bindings.packages.${system}.nix] ++ mainDeps ++ pkgs.lib.optional pkgs.hostPlatform.isDarwin darwinExtraDeps;
         };
-        devShells.bindgen = pkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           inputsFrom = [
-            self.packages.${system}.bindgen
+            self.packages.${system}.default
           ];
-
-          shellHook = ''
-            cd nix-bindgen
-          '';
         };
-        packages.default = self.packages.${system}.cxx;
-        devShells.default = self.devShells.${system}.cxx;
       }
     );
 }
